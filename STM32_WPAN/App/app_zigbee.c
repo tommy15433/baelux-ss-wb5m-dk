@@ -64,6 +64,7 @@
 #define ZED_SLEEP_TIME_30S                           1 /* 30s sleep time unit */
 
 #define SW1_ENDPOINT                                1
+
 /* USER CODE BEGIN PD */
 
 #define DEV_ENDPOINT  2
@@ -202,9 +203,6 @@ struct zigbee_app_info
 
 };
 static struct zigbee_app_info zigbee_app_info;
-bool leaveRequestFlag = false;
-uint16_t leaveRequestAddr = 0;
-
 
 /* USER CODE BEGIN PV */
 

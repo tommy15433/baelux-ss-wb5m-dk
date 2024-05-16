@@ -101,7 +101,6 @@ void MX_USART1_UART_Init(void);
 #define QSPI_BK_IO3_GPIO_Port GPIOD
 #define INT1_Pin GPIO_PIN_2
 #define INT1_GPIO_Port GPIOD
-#define INT1_EXTI_IRQn EXTI2_IRQn
 #define D_C_DISP_Pin GPIO_PIN_9
 #define D_C_DISP_GPIO_Port GPIOC
 #define QSPI_BK_NCS_Pin GPIO_PIN_3
@@ -110,7 +109,6 @@ void MX_USART1_UART_Init(void);
 #define TSC_G4_IO2_GPIO_Port GPIOC
 #define INT2_Pin GPIO_PIN_9
 #define INT2_GPIO_Port GPIOD
-#define INT2_EXTI_IRQn EXTI9_5_IRQn
 #define TSC_G6_IO1_Pin GPIO_PIN_10
 #define TSC_G6_IO1_GPIO_Port GPIOD
 #define GPIO_SELECT1_Pin GPIO_PIN_2

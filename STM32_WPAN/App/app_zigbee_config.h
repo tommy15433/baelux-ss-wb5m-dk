@@ -1,3 +1,3 @@
 #pragma once
 
-  // #define CFG_REMOTE
+   #define CFG_REMOTE

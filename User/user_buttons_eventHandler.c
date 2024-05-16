@@ -23,14 +23,16 @@ static void onButtonError(button_id_t id) {
 static void onButtonPress(button_id_t id) {
   printf("press %d\r\n", id);
 
-  APP_ZIGBEE_NwkStartJoin();
+//  APP_ZIGBEE_NwkStartJoin();
     UTIL_SEQ_SetTask(user_task_zigbee_nwk_join, 0);
+
+
   if (id == user_button1.id) {
-    UTIL_SEQ_SetTask(user_task_zigbee_nwk_join, 0);
+//    UTIL_SEQ_SetTask(user_task_zigbee_nwk_join, 0);
   }
   else if (id == user_button2.id) {
 
-    UTIL_SEQ_SetTask(user_task_zigbee_nwk_join, 0);
+//    UTIL_SEQ_SetTask(user_task_zigbee_nwk_join, 0);
   }
   // else if (id == user_button3.id){
 

@@ -375,6 +375,7 @@ static void appe_Tl_Init(void)
 {
   TL_MM_Config_t tl_mm_config;
   SHCI_TL_HciInitConf_t SHci_Tl_Init_Conf;
+
   /**< Reference table initialization */
   TL_Init();
 
@@ -385,7 +386,6 @@ static void appe_Tl_Init(void)
   shci_init(APPE_SysUserEvtRx, (void*) &SHci_Tl_Init_Conf);
 
   /**< Memory Manager channel initialization */
-  memset(&tl_mm_config, 0, sizeof(TL_MM_Config_t));
   tl_mm_config.p_BleSpareEvtBuffer = 0;
   tl_mm_config.p_SystemSpareEvtBuffer = SystemSpareEvtBuffer;
   tl_mm_config.p_AsynchEvtPool = EvtPool;
@@ -490,9 +490,9 @@ void HAL_Delay(uint32_t Delay)
     /**
      * This option is used to ensure that store operations are completed
      */
-  #if defined (__CC_ARM) || defined (__ARMCC_VERSION)
+  #if defined (__CC_ARM)
     __force_stores();
-  #endif /* __ARMCC_VERSION */
+  #endif /* __CC_ARM */
 
     __WFI();
   }

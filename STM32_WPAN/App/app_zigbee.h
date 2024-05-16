@@ -91,10 +91,6 @@ void APP_ZIGBEE_Error(uint32_t ErrId, uint32_t ErrCode);
 void APP_ZIGBEE_RegisterCmdBuffer(TL_CmdPacket_t *p_buffer);
 void APP_ZIGBEE_TL_INIT(void);
 void Pre_ZigbeeCmdProcessing(void);
-
-void APP_ZIGBEE_NwkStartForm(void);
-void APP_ZIGBEE_NwkStartJoin(void);
-
 /* USER CODE BEGIN EF */
 void APP_ZIGBEE_registerCallback(app_zigbee_logic_callbacks_t* callback);
 void APP_ZIGBEE_sleep_timer_enter();
@@ -108,6 +104,11 @@ void APP_ZIGBEE_Send2bytes(uint8_t *b, uint16_t groupAddr, enum ZbApsAddrModeT m
 void APP_ZIGBEE_Broadcast2bytes(uint8_t* b);
 
 void APP_ZIGBEE_enter_sleep(void);
+
+void APP_ZIGBEE_NwkStartForm(void);
+void APP_ZIGBEE_NwkStartJoin(void);
+
+
 bool APP_ZIGBEE_persist_save();
 extern uint16_t m_parent;
 
