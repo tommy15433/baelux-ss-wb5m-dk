@@ -91,7 +91,8 @@ static void user_lcd_init()
 }
 static void user_hwtimer_init(void)
 {
-
+	// button event timer for handling multiple click events
+	// since buttons.c library only notifies press, release, shortkey, longkey, error
 }
 
 static void user_qtask_init(void)
