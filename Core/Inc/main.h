@@ -57,7 +57,8 @@ void Error_Handler(void);
 void MX_USART1_UART_Init(void);
 
 /* USER CODE BEGIN EFP */
-
+extern SPI_HandleTypeDef hspi2;
+extern SPI_HandleTypeDef hspi1;
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
