@@ -16,9 +16,19 @@
 // includes for rtc
 #include "user_rtc_driver.h"
 
+// include for lcd
+#include "user_lcd.h"
+#include "user_lcd_driver.h"
+#include "stm32_lcd.h"
+#include "stlogo.h"
 // include for zigbee
 #include "app_zigbee.h"
+
 #include "user_hw_timer.h"
+
+// for error message
+#include "utils_print.h"
+
 // private stack variable memory allocation
 utils_ringbuffer_t user_ringbuffer_intHandler;
 uint8_t buf[10];
@@ -100,7 +110,33 @@ static void user_button_init()
 }
 static void user_lcd_init()
 {
+   user_lcd_status_t ret = user_lcd_status_ERROR_NONE;
 
+   ret = user_lcd_Init(&user_lcd_driver, user_lcd_orientation_landscape);
+
+   if (ret != user_lcd_status_ERROR_NONE) {
+       // throw error
+        utils_print_err("user lcd init failed %x", ret);
+   }
+
+    UTIL_LCD_SetFuncDriver(&LCD_Driver);
+    UTIL_LCD_SetDevice(0);
+
+    user_lcd_Clear(SSD1315_COLOR_BLACK);
+    user_lcd_DisplayOn();
+    user_lcd_Refresh();
+
+    UTIL_LCD_SetFont(&Font12);
+    UTIL_LCD_SetTextColor(SSD1315_COLOR_WHITE);
+    UTIL_LCD_SetBackColor(SSD1315_COLOR_BLACK);
+    user_lcd_Clear(SSD1315_COLOR_BLACK);
+    user_lcd_Refresh();
+    /* Display ST Logo */
+    user_lcd_Clear(SSD1315_COLOR_BLACK);
+    user_lcd_Refresh();
+    user_lcd_DrawBitmap( 0, 0, (uint8_t *)stlogo);
+    user_lcd_Refresh();
+    HAL_Delay(2000);
 }
 static void user_hwtimer_init(void)
 {
@@ -135,6 +171,6 @@ void user_init(void)
 
     // user_hwtimer_init();
 
-    // user_lcd_init();
+    user_lcd_init();
 }
 
