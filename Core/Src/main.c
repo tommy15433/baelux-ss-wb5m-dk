@@ -165,7 +165,7 @@ int main(void)
   MX_RF_Init();
   /* USER CODE BEGIN 2 */
 
-  user_init();
+  // user_init();
 
   /* USER CODE END 2 */
 
@@ -175,6 +175,7 @@ int main(void)
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
 
+  user_init();
   // int hwid = 2;
   // uint8_t retv;
   // HW_TS_Create(hwid, &retv, hw_ts_Repeated, ts_callback);

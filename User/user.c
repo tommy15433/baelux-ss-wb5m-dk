@@ -102,7 +102,7 @@ static void user_qtask_init(void)
 
     }
 
-    UTIL_SEQ_Init();
+    // UTIL_SEQ_Init();
     // register tasks
     UTIL_SEQ_RegTask(user_task_bitmap_gpio_int , 0, user_task_bitmap_gpio_int_fn);
     UTIL_SEQ_RegTask(user_task_bitmap_test, 0, user_task_bitmap_test_fn);
