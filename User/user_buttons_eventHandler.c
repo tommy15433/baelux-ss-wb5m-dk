@@ -43,7 +43,7 @@ static void onButtonPress(button_id_t id) {
 }
 static void onButtonRelease(button_id_t id) {
   printf("release %d\r\n", id);
-S
+
   if (id == user_button1.id) {
 
   }
