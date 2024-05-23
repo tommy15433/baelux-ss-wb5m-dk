@@ -15,9 +15,20 @@ typedef enum {
     buttons_idNotValid
 }buttons_result_e;
 
-void buttons_init(void);
-void buttons_update(button_id_t id);
-buttons_result_e buttons_registerButton(button_id_t id, button_driver_t* driver, button_eventHandler_t* handler);
+
+void buttons_init(button_invoke_timer_t* invokeTimer);
+//void buttons_update(button_id_t id);
+void buttons_update(button_id_t id, uint32_t timestamp, button_status_e status);
+/**
+ * @brief call this function on button timer elapsed when button_invoke_timer_t is in use.
+ * 
+ */
+void buttons_onInvokeTimerElapsed(void);
+buttons_result_e buttons_registerButton(
+    button_id_t id,
+    button_driver_t* driver, 
+    button_eventHandler_t* handler);
+
 
 
 #ifdef __cplusplus

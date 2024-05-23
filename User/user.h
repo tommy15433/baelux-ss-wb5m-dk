@@ -13,13 +13,15 @@
 // #define USER_RTC_ENABLE
 
 // max 32
-enum {
+enum {s
     user_task_bitmap_gpio_int = 1 << 4,
     user_task_bitmap_test = 1 << 5,
     user_task_zigbee_nwk_start = 1 << 6,
     user_task_zigbee_enter_stop = 1 << 7,
     user_task_zigbee_nwk_form = 1 << 8,
     user_task_zigbee_nwk_join = 1 << 9,
+    user_task_invokeBtnEvent = 1 << 10,
+    
 };
 extern utils_ringbuffer_t user_ringbuffer_intHandler;
 

@@ -18,6 +18,7 @@
 
 // include for zigbee
 #include "app_zigbee.h"
+#include "user_hw_timer.h"
 // private stack variable memory allocation
 utils_ringbuffer_t user_ringbuffer_intHandler;
 uint8_t buf[10];
@@ -71,10 +72,22 @@ static void user_rtc_init()
     printf("user_rtc_init_and_register done\r\n");
 #endif
 }
+button_invoke_timer_t buttonTimer = {
+    .button_invoke_timer_start = user_hw_timer_btnEvent_start,
+    .button_invoke_timer_stop = user_hw_timer_btnEvent_stop,
+    .button_invoke_timer_restart = user_hw_timer_btnEvent_restart
+};
+
+
 static void user_button_init()
 {
     // initialize buttons software and pair them with user_buttons
-    buttons_init();
+
+    user_hw_timer_btnEvent.elapse_ms = HW_TS_250MS;
+    user_hw_timer_btnEvent.onTimerElapsedCallback = buttons_onInvokeTimerElapsed;
+    HW_TS_Create(user_hw_timer_btnEvent.userid, &user_hw_timer_btnEvent.timerid, user_hw_timer_btnEvent.mode, user_hw_timer_btnEvent.onTimerElapsedCallback);
+
+    buttons_init(&buttonTimer);
     if (buttons_registerButton(user_button1.id, &user_button1_driver, &user_button_eventHandler) != buttons_success) {
         // registeration failed
     }

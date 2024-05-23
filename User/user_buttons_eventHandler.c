@@ -43,7 +43,7 @@ static void onButtonPress(button_id_t id) {
 }
 static void onButtonRelease(button_id_t id) {
   printf("release %d\r\n", id);
-
+S
   if (id == user_button1.id) {
 
   }
@@ -89,13 +89,18 @@ static void onButtonLongPress(button_id_t id, long ms) {
 
   }
 }
-
+static void onButtonShortMultiPress(button_id_t id, int cnt)
+{
+  printf("short multi press %d\r\n", cnt);
+}
 button_eventHandler_t user_button_eventHandler = {
 		.button_onError = onButtonError,
 		.button_onLongPressed = onButtonLongPress,
 		.button_onPressed = onButtonPress,
 		.button_onReleased = onButtonRelease,
-		.button_onShortPressed = onButtonShortPress
+		.button_onShortPressed = onButtonShortPress,
+    .button_onShortMultiPressed = onButtonShortMultiPress,
+
 };
 
 // button_eventHandler_t user_button2_eventHandler = {

@@ -2,6 +2,7 @@
 
 #include <stdint.h>
 #include <stddef.h>
+#include <stdbool.h>
 
 #define ID_NOT_MAPPED 0xffff
 
@@ -13,7 +14,8 @@ typedef uint16_t button_id_t;
 
 typedef enum {
     button_status_pressed = 0,
-    button_status_released
+    button_status_released,
+    button_status_unknown,
 }button_status_e;
 
 typedef enum {
@@ -21,6 +23,7 @@ typedef enum {
     button_event_pressed,
     button_event_released,
     button_event_short,
+    button_event_short_multi,
     button_event_long,
     button_event_error
 }button_event_e;
@@ -45,6 +48,7 @@ typedef button_event_e (*button_eventCb)(void);
 typedef void (*button_onPressed)(button_id_t id);
 typedef void (*button_onReleased)(button_id_t id);
 typedef void (*button_onShortPressed)(button_id_t id);
+typedef void (*button_onShortMultiPressed)(button_id_t id, int cnt);
 typedef void (*button_onLongPressed)(button_id_t id, long pressedTimeMs);
 typedef void (*button_onError)(button_id_t id);
 
@@ -52,6 +56,7 @@ typedef struct {
     button_onPressed button_onPressed;
     button_onReleased button_onReleased;
     button_onShortPressed button_onShortPressed;
+    button_onShortMultiPressed button_onShortMultiPressed;
     button_onLongPressed button_onLongPressed;
     button_onError button_onError;
 }button_eventHandler_t;
@@ -61,7 +66,12 @@ typedef struct {
     button_readState button_getButtonState;
 }button_driver_t;
 
-
+typedef struct 
+{
+    void (*button_invoke_timer_start)(void);
+    void (*button_invoke_timer_stop)(void);
+    void (*button_invoke_timer_restart)(void);
+} button_invoke_timer_t;
 
 typedef struct button{
     button_id_t id;
@@ -77,12 +87,13 @@ typedef struct button{
 
     button_driver_t* m_driver;
     button_eventHandler_t* m_events;
+
+    // internal use
+    int cnt;
 }button_t;
 
-
-
-
 void button_init(button_t* handle);
+void button_setInvokeTimer(button_invoke_timer_t* invokeTimer);
 void button_setDriver(button_t* button, button_driver_t* driver);
 void button_registerEvent(button_t* button, button_eventHandler_t* eventCb);
 
@@ -95,7 +106,9 @@ void button_registerEvent(button_t* button, button_eventHandler_t* eventCb);
 void button_setShortPressTimeout(button_t* handle, long ms);
 void button_setId(button_t* handle, button_id_t id);
 uint8_t button_getId(button_t* handle);
-void button_update(button_t* handle);
+void button_update(button_t* handle, uint32_t timestamp, button_status_e status);
+
+void button_onInvokeTimerElapsed(void);
 
 #ifdef __cplusplus
 }

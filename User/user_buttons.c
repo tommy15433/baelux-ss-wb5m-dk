@@ -25,6 +25,16 @@ button_info user_button2 = {
     .pinMask = 1 << BUTTON2_PIN,
     .pressedLevel = 0};
 
+button_info* user_button_find(uint16_t pin)
+{
+    if (pin == 1 << BUTTON1_PIN) {
+        return &user_button1;
+    } else if (pin == 1 << BUTTON2_PIN) {
+        return &user_button2;
+    } else {
+        return &user_button1;
+    }
+}
 // button_info user_button3 = {
 //     .gpio = BUTTON3_GPIO,
 //     .id = 1 << BUTTON3_PIN,

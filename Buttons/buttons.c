@@ -1,4 +1,5 @@
 #include "buttons.h"
+#include <stdbool.h>
 
 button_t m_buttons[BUTTONS_MAX];
 button_id_t idx2IdMap[BUTTONS_MAX];
@@ -42,23 +43,27 @@ void idx2IdMapper(button_id_t id, uint8_t idx){
 //
 // public
 //
-void buttons_init(void) {
+void buttons_init(button_invoke_timer_t* invokeTimer) {
     mInitCount = 0;
     for (int i = 0; i < BUTTONS_MAX; i++){
         idx2IdMap[i] = ID_NOT_MAPPED;
         button_init(&m_buttons[i]);
     }
+
+    button_setInvokeTimer(invokeTimer);
 }
-void buttons_update(button_id_t id) {
-    
+void buttons_update(button_id_t id, uint32_t timestamp, button_status_e status)
+{
+
     uint16_t idx = id2idx(id);
     if (idx == ID_NOT_MAPPED) {
         return;
     }
     
-    button_update(&m_buttons[idx]);
+    // set timestamp to 0 to use driver to fetch timestamp
+    // set status to button_status_unknown to use driver to read gpio status
+    button_update(&m_buttons[idx], timestamp, status);
 }
-
 buttons_result_e buttons_registerButton(button_id_t id, button_driver_t* driver, button_eventHandler_t* handler){
     if (mInitCount > BUTTONS_MAX){
         return buttons_overflow;
@@ -79,3 +84,6 @@ buttons_result_e buttons_registerButton(button_id_t id, button_driver_t* driver,
     return buttons_success;
 }
 
+void buttons_onInvokeTimerElapsed(void){
+    button_onInvokeTimerElapsed();
+}

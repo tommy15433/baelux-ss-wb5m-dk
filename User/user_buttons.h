@@ -17,3 +17,4 @@ typedef struct {
 extern button_info user_button1;
 extern button_info user_button2;
 // extern button_info user_button3;
+button_info* user_button_find(uint16_t pin);
