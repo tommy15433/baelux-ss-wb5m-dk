@@ -10,6 +10,7 @@ extern "C"
 #include "ssd1315.h"
 #include "lcd.h"
 #include "fonts.h"
+#include "user_lcd_driver.h"
 #include <stdint.h>
 /* Include audio component Driver */
 
@@ -93,7 +94,7 @@ extern "C"
     /** @defgroup STM32WB5MM_DK_LCD_Exported_Functions Exported Functions
      * @{
      */
-    user_lcd_status_t user_lcd_Init(SSD1315_Drv_t *driver, user_lcd_orientation_t Orientation);
+    user_lcd_status_t user_lcd_Init(user_lcd_driver_t *driver, user_lcd_orientation_t Orientation);
     user_lcd_status_t user_lcd_DeInit(void);
 
     /* LCD generic APIs: Display control */

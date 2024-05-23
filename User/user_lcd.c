@@ -103,7 +103,7 @@ const LCD_UTILS_Drv_t LCD_Driver =
  * @param  Orientation
  * @retval user_lcd_status_t
  */
-static user_lcd_status_t SSD1315_Probe(SSD1315_Drv_t* driver, user_lcd_orientation_t Orientation)
+static user_lcd_status_t SSD1315_Probe(user_lcd_driver_t* driver, user_lcd_orientation_t Orientation)
 {
 	user_lcd_status_t ret = user_lcd_status_ERROR_NONE;
 
@@ -127,9 +127,9 @@ static user_lcd_status_t SSD1315_Probe(SSD1315_Drv_t* driver, user_lcd_orientati
 /**
  * @brief  Initializes the LCD.
  * @param  Orientation LCD_ORIENTATION_LANDSCAPE
- * @retval BSP status
+ * @retval user_lcd_status_t
  */
-user_lcd_status_t user_lcd_Init(SSD1315_Drv_t* driver, user_lcd_orientation_t Orientation)
+user_lcd_status_t user_lcd_Init(user_lcd_driver_t* driver, user_lcd_orientation_t Orientation)
 {
 	user_lcd_status_t ret = user_lcd_status_ERROR_NONE;
 
@@ -155,7 +155,7 @@ user_lcd_status_t user_lcd_Init(SSD1315_Drv_t* driver, user_lcd_orientation_t Or
 
 /**
  * @brief  De-Initializes the LCD resources.
- * @retval BSP status
+ * @retval user_lcd_status_t
  */
 user_lcd_status_t user_lcd_DeInit(void)
 {
@@ -173,7 +173,7 @@ user_lcd_status_t user_lcd_DeInit(void)
 /**
  * @brief  Gets the LCD Active LCD Pixel Format.
  * @param  PixelFormat Active LCD Pixel Format
- * @retval BSP status
+ * @retval user_lcd_status_t
  */
 user_lcd_status_t user_lcd_GetPixelFormat(uint32_t *PixelFormat)
 {
@@ -187,7 +187,7 @@ user_lcd_status_t user_lcd_GetPixelFormat(uint32_t *PixelFormat)
 /**
  * @brief  Gets the LCD X size.
  * @param  pXSize pointer to Used LCD X size
- * @retval BSP status
+ * @retval user_lcd_status_t
  */
 user_lcd_status_t user_lcd_GetXSize(uint32_t *pXSize)
 {
@@ -211,7 +211,7 @@ user_lcd_status_t user_lcd_GetXSize(uint32_t *pXSize)
 /**
  * @brief  Gets the LCD Y size.
  * @param  pYSize pointer to Used LCD Y size
- * @retval BSP status
+ * @retval user_lcd_status_t
  */
 user_lcd_status_t user_lcd_GetYSize(uint32_t *pYSize)
 {
@@ -234,7 +234,7 @@ user_lcd_status_t user_lcd_GetYSize(uint32_t *pYSize)
 
 /**
  * @brief  Switch On the display.
- * @retval BSP status
+ * @retval user_lcd_status_t
  */
 user_lcd_status_t user_lcd_DisplayOn(void)
 {
@@ -257,7 +257,7 @@ user_lcd_status_t user_lcd_DisplayOn(void)
 
 /**
  * @brief  Switch Off the display.
- * @retval BSP status
+ * @retval user_lcd_status_t
  */
 user_lcd_status_t user_lcd_DisplayOff(void)
 {
@@ -280,7 +280,7 @@ user_lcd_status_t user_lcd_DisplayOff(void)
 
 /**
  * @brief  Refresh the display.
- * @retval BSP status
+ * @retval user_lcd_status_t
  */
 user_lcd_status_t user_lcd_Refresh(void)
 {
@@ -304,7 +304,7 @@ user_lcd_status_t user_lcd_Refresh(void)
 /**
  * @brief  Set Page.
  * @param  Page LCD Page
- * @retval BSP status
+ * @retval user_lcd_status_t
  */
 user_lcd_status_t user_lcd_SetPage(uint16_t Page)
 {
@@ -328,7 +328,7 @@ user_lcd_status_t user_lcd_SetPage(uint16_t Page)
 /**
  * @brief  Set Column.
  * @param  Column LCD Column
- * @retval BSP status
+ * @retval user_lcd_status_t
  */
 user_lcd_status_t user_lcd_SetColumn(uint16_t Column)
 {
@@ -355,7 +355,7 @@ user_lcd_status_t user_lcd_SetColumn(uint16_t Column)
  * @param  StartPage LCD Start page  for scrolling: 0..7
  * @param  EndPage LCD End page for scrolling: This must be larger or equal to StartLine 0..7
  * @param  Frequency LCD Frequency: SSD1315_SCROLL_FREQ_2FRAMES to SSD1315_SCROLL_FREQ_256FRAMES
- * @retval BSP status
+ * @retval user_lcd_status_t
  */
 user_lcd_status_t user_lcd_ScrollingSetup(uint16_t ScrollMode, uint16_t StartPage, uint16_t EndPage, uint16_t Frequency)
 {
@@ -378,7 +378,7 @@ user_lcd_status_t user_lcd_ScrollingSetup(uint16_t ScrollMode, uint16_t StartPag
 
 /**
  * @brief  Scrolling Start.
- * @retval BSP status
+ * @retval user_lcd_status_t
  */
 user_lcd_status_t user_lcd_ScrollingStart(void)
 {
@@ -401,7 +401,7 @@ user_lcd_status_t user_lcd_ScrollingStart(void)
 
 /**
  * @brief  Scrolling Stop.
- * @retval BSP status
+ * @retval user_lcd_status_t
  */
 user_lcd_status_t user_lcd_ScrollingStop(void)
 {
@@ -425,7 +425,7 @@ user_lcd_status_t user_lcd_ScrollingStop(void)
 /**
  * @brief  Set the brightness value
  * @param  Brightness [00: Min (black), 100 Max]
- * @retval BSP status
+ * @retval user_lcd_status_t
  */
 user_lcd_status_t user_lcd_SetBrightness(uint32_t Brightness)
 {
@@ -449,7 +449,7 @@ user_lcd_status_t user_lcd_SetBrightness(uint32_t Brightness)
 /**
  * @brief  Get the brightness value
  * @param  Brightness [00: Min (black), 100 Max]
- * @retval BSP status
+ * @retval user_lcd_status_t
  */
 user_lcd_status_t user_lcd_GetBrightness(uint32_t *Brightness)
 {
@@ -473,7 +473,7 @@ user_lcd_status_t user_lcd_GetBrightness(uint32_t *Brightness)
 /**
  * @brief  Set the LCD Orientation.
  * @param  Orientation LCD orientation to set
- * @retval BSP status
+ * @retval user_lcd_status_t
  */
 user_lcd_status_t user_lcd_SetOrientation(uint32_t Orientation)
 {
@@ -497,7 +497,7 @@ user_lcd_status_t user_lcd_SetOrientation(uint32_t Orientation)
 /**
  * @brief  Get the LCD orientation.
  * @param  Orientation LCD Orientation used
- * @retval BSP status
+ * @retval user_lcd_status_t
  */
 user_lcd_status_t user_lcd_GetOrientation(uint32_t *Orientation)
 {
@@ -522,7 +522,7 @@ user_lcd_status_t user_lcd_GetOrientation(uint32_t *Orientation)
  * @brief  Get the LCD orientation.
  * @param  Xpos to set the cursor
  * @param  Ypos to set the cursor
- * @retval BSP status
+ * @retval user_lcd_status_t
  */
 user_lcd_status_t user_lcd_SetCursor(uint32_t Xpos, uint32_t Ypos)
 {
@@ -548,7 +548,7 @@ user_lcd_status_t user_lcd_SetCursor(uint32_t Xpos, uint32_t Ypos)
  * @param  Xpos Bmp X position in the LCD
  * @param  Ypos Bmp Y position in the LCD
  * @param  pBmp Pointer to Bmp picture address in the internal Flash
- * @retval BSP status
+ * @retval user_lcd_status_t
  */
 user_lcd_status_t user_lcd_DrawBitmap(uint32_t Xpos, uint32_t Ypos, uint8_t *pBmp)
 {
@@ -577,7 +577,7 @@ user_lcd_status_t user_lcd_DrawBitmap(uint32_t Xpos, uint32_t Ypos, uint8_t *pBm
  * @param  Xshift  specifies number of pixel to shift on X position.
  * @param  Yshift  specifies number of pixel to shift on Y position.
  * @param  pBmp Pointer to Bmp picture address in the internal Flash
- * @retval BSP status
+ * @retval user_lcd_status_t
  */
 user_lcd_status_t user_lcd_ShiftBitmap(uint32_t Xpos, uint32_t Ypos, int16_t Xshift, int16_t Yshift, uint8_t *pBmp)
 {
@@ -606,7 +606,7 @@ user_lcd_status_t user_lcd_ShiftBitmap(uint32_t Xpos, uint32_t Ypos, int16_t Xsh
  * @param  Ypos Y position.
  * @param  Width width of the rectangle to fill.
  * @param  Height height of the rectangle to fill.
- * @retval BSP status.
+ * @retval user_lcd_status_t.
  */
 user_lcd_status_t user_lcd_FillRGBRect(uint32_t Xpos, uint32_t Ypos, uint8_t *pData, uint32_t Width, uint32_t Height)
 {
@@ -634,7 +634,7 @@ user_lcd_status_t user_lcd_FillRGBRect(uint32_t Xpos, uint32_t Ypos, uint8_t *pD
  * @param  Ypos Y position
  * @param  Length Line length
  * @param  Color Line color
- * @retval BSP status
+ * @retval user_lcd_status_t
  */
 user_lcd_status_t user_lcd_DrawHLine(uint32_t Xpos, uint32_t Ypos, uint32_t Length, uint32_t Color)
 {
@@ -662,7 +662,7 @@ user_lcd_status_t user_lcd_DrawHLine(uint32_t Xpos, uint32_t Ypos, uint32_t Leng
  * @param  Ypos Y position
  * @param  Length Line length
  * @param  Color Line color
- * @retval BSP status
+ * @retval user_lcd_status_t
  */
 user_lcd_status_t user_lcd_DrawVLine(uint32_t Xpos, uint32_t Ypos, uint32_t Length, uint32_t Color)
 {
@@ -691,7 +691,7 @@ user_lcd_status_t user_lcd_DrawVLine(uint32_t Xpos, uint32_t Ypos, uint32_t Leng
  * @param  Width Rectangle width
  * @param  Height Rectangle height
  * @param  Color Color of rectangle
- * @retval BSP status
+ * @retval user_lcd_status_t
  */
 user_lcd_status_t user_lcd_FillRect(uint32_t Xpos, uint32_t Ypos, uint32_t Width, uint32_t Height, uint32_t Color)
 {
@@ -708,7 +708,7 @@ user_lcd_status_t user_lcd_FillRect(uint32_t Xpos, uint32_t Ypos, uint32_t Width
 /**
  * @brief  clear the LCD in currently active layer.
  * @param  Color to set
- * @retval BSP status
+ * @retval user_lcd_status_t
  */
 user_lcd_status_t user_lcd_Clear(uint32_t Color)
 {
@@ -727,7 +727,7 @@ user_lcd_status_t user_lcd_Clear(uint32_t Color)
  * @param  Xpos X position
  * @param  Ypos Y position
  * @param  Color pointer to RGB pixel color
- * @retval BSP status
+ * @retval user_lcd_status_t
  */
 user_lcd_status_t user_lcd_ReadPixel(uint32_t Xpos, uint32_t Ypos, uint32_t *Color)
 {
@@ -746,7 +746,7 @@ user_lcd_status_t user_lcd_ReadPixel(uint32_t Xpos, uint32_t Ypos, uint32_t *Col
  * @param  Xpos X position
  * @param  Ypos Y position
  * @param  Color RGB pixel color
- * @retval BSP status
+ * @retval user_lcd_status_t
  */
 user_lcd_status_t user_lcd_WritePixel(uint32_t Xpos, uint32_t Ypos, uint32_t Color)
 {
@@ -765,7 +765,7 @@ user_lcd_status_t user_lcd_WritePixel(uint32_t Xpos, uint32_t Ypos, uint32_t Col
  * @param  Reg Register to be written
  * @param  pData pointer to the read data from LCD SRAM.
  * @param  Length length of data be read from the LCD SRAM
- * @retval BSP status
+ * @retval user_lcd_status_t
  */
 user_lcd_status_t user_lcd_WriteReg(uint16_t Reg, uint8_t *pData, uint16_t Length)
 {
@@ -787,36 +787,20 @@ user_lcd_status_t user_lcd_WriteReg(uint16_t Reg, uint8_t *pData, uint16_t Lengt
  * @brief  Send data to select the LCD SRAM.
  * @param  pData pointer to data to write to LCD SRAM.
  * @param  Length length of data to write to LCD SRAM
- * @retval Error status
+ * @retval user_lcd_status_ERROR_NONE on success, *_BUS_FAILURE
  */
 user_lcd_status_t user_lcd_SendData(uint8_t *pData, uint16_t Length)
 {
 	user_lcd_status_t ret = user_lcd_status_ERROR_NONE;
-	if (Length == 1)
-	{
-		/* Reset LCD control line CS */
-		LCD_CS_LOW();
-		LCD_DC_LOW();
-		/* Send Data */
-		if (BSP_SPI1_Send(pData, Length) != user_lcd_status_ERROR_NONE)
-		{
+
+	if (m_ssd1315_instance.IsInitialized != true) {
+		ret = user_lcd_status_ERROR_NO_INIT;
+	} else {
+		if (m_ssd1315_instance.IO.WriteReg(0, pData, Length) !=
+				user_lcd_driver_status_ok) {
+
 			ret = user_lcd_status_ERROR_BUS_FAILURE;
 		}
-		/* Deselect : Chip Select high */
-		LCD_CS_HIGH();
-	}
-	else
-	{
-		LCD_CS_LOW();
-		LCD_DC_HIGH();
-		/* Send Data */
-		if (BSP_SPI1_Send(pData, Length) != user_lcd_status_ERROR_NONE)
-		{
-			ret = user_lcd_status_ERROR_BUS_FAILURE;
-		}
-		LCD_DC_LOW();
-		/* Deselect : Chip Select high */
-		LCD_CS_HIGH();
 	}
 
 	return ret;
@@ -827,57 +811,22 @@ user_lcd_status_t user_lcd_SendData(uint8_t *pData, uint16_t Length)
  * @param  Reg Register to be read
  * @param  pData pointer to the read data from LCD SRAM.
  * @param  Length length of data be read from the LCD SRAM
- * @retval BSP status
+ * @retval user_lcd_status_ERROR_NONE on success, *_BUS_FAILURE
  */
 user_lcd_status_t user_lcd_ReadReg(uint16_t Reg, uint8_t *pData, uint16_t Length)
 {
 	user_lcd_status_t ret = user_lcd_status_ERROR_NONE;
-	UNUSED(Length);
 
-	/* Send Reg value to Read */
-	if (user_lcd_WriteReg(Reg, pData, 0) != user_lcd_status_ERROR_NONE)
-	{
-		ret = user_lcd_status_ERROR_BUS_FAILURE;
-	}
-	/* Reset LCD control line(/CS) and Send command */
-	LCD_CS_LOW();
+	if (m_ssd1315_instance.IsInitialized != true) {
 
-	if (ret == user_lcd_status_ERROR_NONE)
-	{
-		if (BSP_SPI1_Recv(pData, 2) != user_lcd_status_ERROR_NONE)
-		{
+		ret = user_lcd_status_ERROR_NO_INIT;
+	} else {
+
+		if (m_ssd1315_instance.IO.ReadReg(Reg, pData, Length) != 
+				user_lcd_driver_status_ok) {
 			ret = user_lcd_status_ERROR_BUS_FAILURE;
 		}
 	}
-	/* Deselect : Chip Select high */
-	LCD_CS_HIGH();
 
 	return ret;
 }
-
-/**
- * @}
- */
-
-/** @defgroup STM32WB5MM_DK_LCD_Private_Functions Private Functions
- * @{
- */
-
-/*******************************************************************************
- ********************************* LINK LCD ***********************************/
-
-/**
- * @}
- */
-
-/**
- * @}
- */
-
-/**
- * @}
- */
-
-/**
- * @}
- */
