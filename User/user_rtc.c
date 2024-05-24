@@ -73,6 +73,8 @@ static bool user_rtc_verify(void)
 */
 user_rtc_inttype_t ss_rtc_getInterruptType(void) {
     // read flag
+
+	return user_rtc_inttype_timer;
 }
 
 /******************************************************************************

@@ -9,8 +9,8 @@
 
 #include "user.h"
 #ifdef USER_RTC_ENABLE
-#include "i2c.h"
 #include "user_rtc.h"
+#include "main.h"
 /**
  * @file RTC controller driver file
 */

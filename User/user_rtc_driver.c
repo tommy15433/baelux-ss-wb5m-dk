@@ -3,10 +3,10 @@
 
 #include "stm32wb5mxx.h"
 #include "stm32wbxx_hal.h"
+#include "user_rtc_driver.h"
 
 #ifdef USER_RTC_ENABLE
 
-#include "user_rtc_driver.h"
 #include "user_rtc.h"
 #include "utils_config.h"
 /**

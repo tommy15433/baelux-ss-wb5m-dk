@@ -26,8 +26,8 @@ typedef enum {
 
 typedef struct {
 
-    int (*i2c_read)(uint8_t sla, uint8_t addr, uint8_t* data, uint8_t data_size);
-    int (*i2c_write)(uint8_t sla, uint8_t addr, uint8_t* data, uint8_t data_size);
+    bool (*i2c_read)(uint8_t sla, uint8_t addr, uint8_t* data, uint8_t data_size);
+    bool (*i2c_write)(uint8_t sla, uint8_t addr, uint8_t* data, uint8_t data_size);
     void (*print)(const char*);
 } user_rtc_handle_t;
 

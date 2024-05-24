@@ -15,6 +15,7 @@
 
 // includes for rtc
 #include "user_rtc_driver.h"
+#include "user_rtc.h"
 
 // include for lcd
 #include "user_lcd.h"
@@ -35,23 +36,8 @@ utils_ringbuffer_t user_ringbuffer_intHandler;
 uint8_t buf[10];
 // function prototype
 static void user_fun_test(void);
+static void user_get_rtc_time_fn(void);
 
-void a4(void)
-{
-    APP_ZIGBEE_NwkStartJoin();
-}
-void a3(void)
-{
-    APP_ZIGBEE_NwkStartForm();
-}
-void a2(void)
-{
-    user_fun_test();
-}
-void a1(void)
-{
-    user_exti_handler();
-}
 // redirection of task functions.
 // Written for better navigation of the source code.
 void (*user_task_bitmap_gpio_int_fn)(void) = user_exti_handler;
@@ -59,18 +45,24 @@ void (*user_task_bitmap_test_fn)(void) = user_fun_test;
 void (*user_task_zigbee_nwk_form_fn)(void) = APP_ZIGBEE_NwkStartForm;
 void (*user_task_zigbee_nwk_join_fn)(void) = APP_ZIGBEE_NwkStartJoin;
 void (*user_task_zigbee_enter_stop_fn)(void) = APP_ZIGBEE_enter_sleep;
+void (*user_task_rtc_get_time_fn)(void) = user_get_rtc_time_fn;
 
-//static void user_fun_test_rtc(void)
-//{
+// static void user_fun_test_rtc(void)
+// {
 //    user_rtc_Get_Time(buf);
 //    user_rtc_Get_Days(&buf[3]);
 //    printf("%d%d Year %d Month %d Day %d:%d:%d\r\n",buf[6],buf[5],buf[4],buf[3],buf[2],buf[1],buf[0]);
-//}
+// }
+static void user_get_rtc_time_fn(void) {
+   user_rtc_Get_Time(buf);
+   user_rtc_Get_Days(&buf[3]);
+   printf("%d%d Year %d Month %d Day %d:%d:%d\r\n",buf[6],buf[5],buf[4],buf[3],buf[2],buf[1],buf[0]);
+}
 static void user_fun_test(void)
 {
 	printf("test_fun\r\n");
 }
-static void user_rtc_init() 
+static void user_RTC_init() 
 {
 #ifdef USER_RTC_ENABLE
     // initialize PCF8563 RTC driver and pair them with i2c driver
@@ -160,6 +152,7 @@ static void user_qtask_init(void)
     UTIL_SEQ_RegTask(user_task_zigbee_enter_stop, 0, user_task_zigbee_enter_stop_fn);
     UTIL_SEQ_RegTask(user_task_zigbee_nwk_join, 0, user_task_zigbee_nwk_join_fn);
     UTIL_SEQ_RegTask(user_task_zigbee_nwk_form, 0, user_task_zigbee_nwk_form_fn);
+    UTIL_SEQ_RegTask(user_task_rtc_get_time, 0, user_task_rtc_get_time_fn);
 }
 
 void user_init(void)
@@ -168,7 +161,7 @@ void user_init(void)
 
     user_button_init();
     
-    // user_rtc_init();
+    user_RTC_init();
 
     // user_hwtimer_init();
 
