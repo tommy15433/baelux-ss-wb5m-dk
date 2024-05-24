@@ -58,10 +58,13 @@ void azcl_broadcaseLeaveRequest(){
 	req.deviceAddr = azcl_getAddress();
 	req.flags = 0b00000000;
 
-	printf("leave reuqest %d\r\n", req.deviceAddr);
+	printf("leave reuqest %lld\r\n", req.deviceAddr);
 	// callback
 	// void (*callback)(struct ZbZdoLeaveRspT *rsp, void *cb_arg)
 	enum ZbStatusCodeT status = ZbZdoLeaveReq(zb, &req, NULL, NULL);
+	if (status != ZB_STATUS_SUCCESS){ 
+		// do something
+	}
 }
 void azcl_setShortAddress(uint16_t addr)
 {
@@ -86,6 +89,8 @@ int zdoMsgCallback(struct ZigBeeT *zb, struct ZbZdoDeviceAnnceT *annce, uint8_t 
 	APP_DBG("[%d], 0x%2x", cnt++, annce->nwkAddr);
 
 	app_zigbee_serverList_update(annce->nwkAddr, HAL_GetTick());
+
+	return 0;
 }
 
 void azcl_registerZdoMsg() {
@@ -125,7 +130,7 @@ void azcl_test() {
 
 	struct ZbNwkNeighborT table = {0};
 	ZbNwkGet(zb, ZB_NWK_NIB_ID_NeighborTable, &table, sizeof(table));
-	printf("%x %x %x\r\n", table.nwkAddr, table.extAddr, table.relationship);
+	printf("%x %llx %x\r\n", table.nwkAddr, table.extAddr, table.relationship);
 }
 
 void azcl_restore_nwk_addr(void) {
@@ -135,7 +140,6 @@ void azcl_restore_nwk_addr(void) {
 	APP_DBG("Restoring network addresses");
 
 	bool is_fe = false;
-	int cnt = 0;
 	int found = 0;
 
 	// reset

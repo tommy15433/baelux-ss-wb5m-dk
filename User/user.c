@@ -19,6 +19,7 @@
 // include for lcd
 #include "user_lcd.h"
 #include "user_lcd_driver.h"
+#include "user_lcd_wrapper.h"
 #include "stm32_lcd.h"
 #include "stlogo.h"
 // include for zigbee

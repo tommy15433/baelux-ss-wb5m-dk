@@ -37,7 +37,7 @@ typedef button_status_e (*button_readState)(void);
  * @brief driver function for getting system millis
  * @return current timestamp in millis
 */
-typedef long (*button_getTimestamp)(void);
+typedef uint32_t (*button_getTimestamp)(void);
 /**
  * @brief callback function of triggered event_e
  * @return event_e

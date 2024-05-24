@@ -1,5 +1,6 @@
 #include "ee_cfg.h"
 #include "ee_override.h"
+#include "flash_driver.h"
 
 /*****************************************************************************/
 

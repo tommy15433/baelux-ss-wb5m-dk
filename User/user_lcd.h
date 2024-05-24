@@ -86,7 +86,6 @@ extern "C"
      * @{
      */
     extern void *LcdCompObj;
-    extern const LCD_UTILS_Drv_t LCD_Driver;
     /**
      * @}
      */

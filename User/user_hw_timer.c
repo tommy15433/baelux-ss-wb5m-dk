@@ -1,3 +1,4 @@
+#include <stdio.h>
 #include <stdint.h>
 #include "user_hw_timer.h"
 

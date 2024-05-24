@@ -114,7 +114,7 @@ static void APP_ZIGBEE_ProcessRequestM0ToM4(void);
 
 static bool APP_ZIGBEE_persist_load(void);
 bool APP_ZIGBEE_persist_save(void);
-static void APP_ZIGBEE_persist_delete(void);
+static void APP_ZIGBEE_persist_delete(void) __attribute__((unused));
 static void APP_ZIGBEE_persist_notify_cb(struct ZigBeeT *zb, void *cbarg);
 static enum ZbStatusCodeT APP_ZIGBEE_ZbStartupPersist(struct ZigBeeT *zb);
 static void APP_ZIGBEE_PersistCompleted_callback(enum ZbStatusCodeT status, void *arg);
@@ -233,12 +233,6 @@ __attribute__((section(".noinit"))) union cache cache_diag_reference;
 // timer for sleep
 static uint8_t TS_SLEEP_ID1;
 static uint8_t TS_NNT_TIMEOUT_ID1;
-
-// timer for server which is parent to manage serverlist
-static uint8_t TS_SERVER_PARENT_ID1;
-
-// flag that indicates this device is server parent
-static bool m_flag_parent = false;
 
 /* USER CODE END PV */
 /* Functions Definition ------------------------------------------------------*/
@@ -1199,12 +1193,11 @@ void server_parent_timer_handler(void)
 {
   // if (m_flag_parent == true)
   // {
-    serverlist_addr* ptr;
-    uint16_t size;
-    size = app_zigbee_serverList_getTimeouts(ptr);
+    // serverlist_addr* ptr = NULL;
+    // uint16_t size;
+    // size = app_zigbee_serverList_getTimeouts(ptr);
 
-    app_zigbee_serverList_clearTimeouts();
-
+    // app_zigbee_serverList_clearTimeouts();
 
   // }
 }
@@ -1214,7 +1207,7 @@ void sleep_entry_timer_handler(void)
   //	HAL_PWR_DisableSleepOnExit();
   //	APP_ZIGBEE_enter_sleep();
   // when wake up, exit sleep
-  UTIL_SEQ_SetTask(1U << user_task_zigbee_enter_stop, CFG_SCH_PRIO_0);
+  UTIL_SEQ_SetTask(user_task_zigbee_enter_stop, CFG_SCH_PRIO_0);
 }
 void APP_ZIGBEE_sleep_mode_entry(void)
 {
@@ -1265,9 +1258,9 @@ void APP_ZIGBEE_prevent_nwk_nnt_timeout(void)
 void APP_ZIGBEE_SetNwkTask(enum ZbStartType type){
   m_nwkJoinType = type;
   if (type == ZbStartTypeForm) {
-    UTIL_SEQ_SetTask(1U << user_task_zigbee_nwk_form, CFG_SCH_PRIO_0);
+    UTIL_SEQ_SetTask(user_task_zigbee_nwk_form, CFG_SCH_PRIO_0);
   } else {
-    UTIL_SEQ_SetTask(1U << user_task_zigbee_nwk_join, CFG_SCH_PRIO_0);
+    UTIL_SEQ_SetTask(user_task_zigbee_nwk_join, CFG_SCH_PRIO_0);
   }
   // UTIL_SEQ_SetTask(1U << CFG_TASK_ZIGBEE_NETWORK_START, CFG_SCH_PRIO_0);
 }
@@ -1379,7 +1372,7 @@ void APP_ZIGBEE_SendMultibytes(uint8_t*b, uint8_t size, uint16_t nwkAddr, enum Z
 	dst.mode = mode;
 	dst.endpoint = SW1_ENDPOINT;
 	dst.nwkAddr = nwkAddr;
-	zb_cluster_client_command(cluster_remote_cmd_id, &dst, buf, NULL);
+	zb_cluster_client_command(cluster_remote_cmd_id, &dst, (char*)buf, NULL);
 
   free(buf);
 }
@@ -1392,14 +1385,6 @@ void APP_ZIGBEE_Send2bytes(uint8_t *b, uint16_t nwkAddr, enum ZbApsAddrModeT mod
 
 	struct ZbApsAddrT dst;
 	memset(&dst, 0, sizeof(dst));
-	int size = azcl_addr_maps.count;
-
-//	for (int i = 0; i < size; i++){
-//		dst.mode = ZB_APSDE_ADDRMODE_SHORT;
-//		dst.endpoint = 1;
-//		dst.nwkAddr = azcl_addr_maps.maps[i].nwk_addr;
-//		zb_cluster_client_command(&dst, tmp, NULL);
-//	}
 
 	dst.mode = mode;
 	dst.endpoint = SW1_ENDPOINT;
@@ -1427,19 +1412,11 @@ void APP_ZIGBEE_BroadcastExit(){
 
 	tmp[0] = 0xde;
 	tmp[1] = 0xde;
-	sprintf(&tmp[2], "%x", exitAddr);
+	sprintf(&tmp[2], "%llx", exitAddr);
   tmp[10] = '\0';
 
 	struct ZbApsAddrT dst;
 	memset(&dst, 0, sizeof(dst));
-	int size = azcl_addr_maps.count;
-
-//	for (int i = 0; i < size; i++){
-//		dst.mode = ZB_APSDE_ADDRMODE_SHORT;
-//		dst.endpoint = 1;
-//		dst.nwkAddr = azcl_addr_maps.maps[i].nwk_addr;
-//		zb_cluster_client_command(&dst, tmp, NULL);
-//	}
 
 	dst.mode = ZB_APSDE_ADDRMODE_SHORT;
 	dst.endpoint = SW1_ENDPOINT;
@@ -1456,14 +1433,6 @@ void APP_ZIGBEE_BroadcastPermitJoin(){
 
 	struct ZbApsAddrT dst;
 	memset(&dst, 0, sizeof(dst));
-	int size = azcl_addr_maps.count;
-
-//	for (int i = 0; i < size; i++){
-//		dst.mode = ZB_APSDE_ADDRMODE_SHORT;
-//		dst.endpoint = 1;
-//		dst.nwkAddr = azcl_addr_maps.maps[i].nwk_addr;
-//		zb_cluster_client_command(&dst, tmp, NULL);
-//	}
 
 	dst.mode = ZB_APSDE_ADDRMODE_SHORT;
 	dst.endpoint = SW1_ENDPOINT;

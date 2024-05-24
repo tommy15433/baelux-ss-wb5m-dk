@@ -74,7 +74,7 @@ static void onButtonShortPress(button_id_t id) {
   }
 }
 static void onButtonLongPress(button_id_t id, long ms) {
-  printf("long press %d %d [ms]\r\n", id, ms);
+  printf("long press %d %ld [ms]\r\n", id, ms);
 
   if (id == user_button1.id) {
 

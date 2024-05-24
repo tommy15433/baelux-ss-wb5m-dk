@@ -1,4 +1,5 @@
 #include "app_zigbee_utils.h"
+#include <stdio.h>
 
 char m_str[64];
 
@@ -57,7 +58,7 @@ uint16_t strToU16(char* value)
 }
 char* u64ToStr(uint64_t value)
 {
-    sprintf(m_str, "%d", value);
+    sprintf(m_str, "%lld", value);
 
     return m_str;
 }

@@ -10,7 +10,7 @@
 
 // example
 // pair and leave network
-static void indicateNextPair()
+static void __attribute__((unused)) indicateNextPair()
 {
 	APP_ZIGBEE_Indicate_c2s();
 }
@@ -33,13 +33,13 @@ void onKickoutCurrentPair()
 }
 
 // group addressing
-static void leaveAllGroup()
+static void __attribute__((unused)) leaveAllGroup()
 {
 	// device function
 	// stops receiving every packet assigned to group address
 	azcl_removeAllGroup(1);
 }
-static void joinToGroup(uint8_t endpoint, uint8_t groupAddr)
+static void __attribute__((unused)) joinToGroup(uint8_t endpoint, uint8_t groupAddr)
 {
 	// device function
 	// make device to receive packet from endpoint in groupaddress

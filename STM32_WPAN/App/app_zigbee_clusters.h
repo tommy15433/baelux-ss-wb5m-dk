@@ -31,6 +31,7 @@
 #define maxid   10
 #define invalidid 0xffff
 
+#define CUSTOM_LS_RSP_SIZE  64
 enum {
     ZCL_CLUSTER_CUSTOM_LS = 0xfc01 /* Long string custom cluster */
 };
@@ -58,7 +59,7 @@ struct set_custom_ls_command_req_t {
 
 /* Response Structures */
 struct custom_ls_command_rsp_t {
-    char one[64];
+    char one[CUSTOM_LS_RSP_SIZE];
 };
 
 typedef uint16_t clusterId_t;

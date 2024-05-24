@@ -80,20 +80,6 @@ static uint32_t width;
 
 static SSD1315_Drv_t *LcdDrv = NULL;
 
-/* LINK UTIL LCD */
-const LCD_UTILS_Drv_t LCD_Driver =
-	{
-		user_lcd_DrawBitmap,
-		user_lcd_FillRGBRect,
-		user_lcd_DrawHLine,
-		user_lcd_DrawVLine,
-		user_lcd_FillRect,
-		user_lcd_ReadPixel,
-		user_lcd_WritePixel,
-		user_lcd_GetXSize,
-		user_lcd_GetYSize,
-		NULL,
-		user_lcd_GetPixelFormat};
 
 /** STM32WB5MM_DK_LCD_Private_FunctionPrototypes Private Functions
  */
@@ -165,7 +151,6 @@ user_lcd_status_t user_lcd_DeInit(void)
 	{
 		ret = user_lcd_status_ERROR_COMPONENT_FAILURE;
 	}
-	LCD_MspDeInit();
 
 	return ret;
 }

@@ -1,4 +1,5 @@
-#include "cluster_comm.h"
+#include "app_zigbee_clusters.h"
+
 
 static struct ZigbeeT* m_zigbee;
 static uint8_t m_endpoint;

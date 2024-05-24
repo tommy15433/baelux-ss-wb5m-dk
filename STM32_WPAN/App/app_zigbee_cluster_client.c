@@ -34,7 +34,7 @@ uint16_t zb_cluster_client_alloc(
 	m_client[m_curid].response_callback = NULL;
 
     if (m_client[m_curid].cluster == NULL) {
-        return NULL;
+        return invalidid;
     }
 
     /* This is the flags for Fragmentation */

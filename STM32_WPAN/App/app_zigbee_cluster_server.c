@@ -27,7 +27,7 @@ static enum ZclStatusCodeT custom_ls_command_handler(
 	struct ZbZclHeaderT *zclHdrPtr,
 	struct ZbApsdeDataIndT *dataIndPtr)
 {
-    zcl_custom_ls_server_cluster_t *custom_ls_cluster = (struct zcl_custom_ls_server_cluster_t *)clusterPtr;
+    zcl_custom_ls_server_cluster_t *custom_ls_cluster = (zcl_custom_ls_server_cluster_t *)clusterPtr;
     struct ZbZclAddrInfoT src_info;
     uint8_t cmd_id = zclHdrPtr->cmdId;
     enum ZclStatusCodeT return_status = ZCL_STATUS_SUCCESS_NO_DEFAULT_RESPONSE;
@@ -93,7 +93,7 @@ clusterId_t zb_cluster_server_alloc(
 				ZCL_DIRECTION_TO_SERVER);
 
     if (m_server[m_curid].cluster_and_callback == NULL) {
-        return NULL;
+        return invalidid;
     }
 
     m_server[m_curid].cluster_and_callback->cluster.txOptions |= ZB_APSDE_DATAREQ_TXOPTIONS_SECURITY;
@@ -110,7 +110,7 @@ clusterId_t zb_cluster_server_alloc(
     if (ZbZclAttrAppendList(&m_server[m_curid].cluster_and_callback->cluster, zcl_customls_server_attr_list,\
       ZCL_ATTR_LIST_LEN(zcl_customls_server_attr_list)) != ZCL_STATUS_SUCCESS) {
         ZbZclClusterFree(&m_server[m_curid].cluster_and_callback->cluster);
-        return NULL;
+        return invalidid;
     }
 #endif
 
@@ -138,19 +138,20 @@ enum ZclStatusCodeT zb_cluster_server_sendCommandRsp(
 	struct ZbZclAddrInfoT *dst_info,
     struct custom_ls_command_rsp_t *rsp)
 {
-    uint8_t rsp_payload[2];
+    uint8_t rsp_payload[CUSTOM_LS_RSP_SIZE];
     unsigned int length = 0U;
     struct ZbApsBufT bufv[1];
     dst_info->tx_options = ZB_APSDE_DATAREQ_TXOPTIONS_SECURITY;
     /* Form the payload */
-    putle16(&rsp_payload[length], rsp->one);
+    // putle16(&rsp_payload[length], rsp->one);
+    memcpy(rsp_payload, rsp->one, CUSTOM_LS_RSP_SIZE);
     length += 64;
 
     // bufv[0].data = rsp_payload;
     // bufv[0].len = length;
 
-    bufv[0].data = rsp->one;
-    bufv[0].len = 64;
+    bufv[0].data = (uint8_t*)rsp->one;
+    bufv[0].len = CUSTOM_LS_RSP_SIZE;
 
     return ZbZclClusterCommandRsp(clusterPtr, dst_info, ZCL_CUSTOM_LS_COMMAND_RSP, bufv, 1U);
 }

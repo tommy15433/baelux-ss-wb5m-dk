@@ -1,7 +1,5 @@
 #include <app_zigbee_nvm.h>
 
-static int persistNumWrites = 0;
-
 /*
  * NVM Functions
  */
@@ -11,8 +9,8 @@ static int persistNumWrites = 0;
 
 
 /* timer to delay reading attribute back from persistence */
-//static uint8_t TS_ID1;
-static uint8_t TS_ID2;
+// static uint8_t TS_ID1;
+// static uint8_t TS_ID2;
 
 /*
  * NVM FUNCTIONS

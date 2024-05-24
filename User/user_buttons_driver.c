@@ -25,9 +25,9 @@ button_status_e button_read_2(void)
 //     return (status == user_button3.pressedLevel) ? button_status_pressed : button_status_released;
 // }
 
-button_getTimestamp getTimeMs(void)
+uint32_t getTimeMs(void)
 {
-    long tick = (long)HAL_GetTick();
+    uint32_t tick = HAL_GetTick();
 
     return tick;
 }

@@ -137,7 +137,6 @@ serverlist_addr app_zigbee_serverList_next()
 }
 serverlist_addr app_zigbee_serverList_cur()
 {
-    serverlist_t tmp = {0};
     if (ptr == NULL){
         if (head == NULL) {
             return 0;
