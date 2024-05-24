@@ -1,10 +1,11 @@
 #include <stddef.h>
 
 #include "user.h"
+#include "user_rtc.h"
 
 #ifdef USER_RTC_ENABLE
 
-#include "user_rtc.h"
+
 #include "PCF8563.h"
 
 #define REG0    ((reg_format_t*)&reg_control_status_1)

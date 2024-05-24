@@ -10,7 +10,7 @@
 #include "utils_ringbuffer.h"
 
 
-// #define USER_RTC_ENABLE
+ #define USER_RTC_ENABLE
 
 // max 32
 enum {
