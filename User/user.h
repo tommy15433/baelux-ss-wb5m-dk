@@ -21,7 +21,7 @@ enum {
     user_task_zigbee_nwk_form = 1 << 8,
     user_task_zigbee_nwk_join = 1 << 9,
     user_task_invokeBtnEvent = 1 << 10,
-    
+    user_task_rtc_get_time = 1 << 11,
 };
 extern utils_ringbuffer_t user_ringbuffer_intHandler;
 
