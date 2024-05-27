@@ -699,7 +699,7 @@ user_lcd_status_t user_lcd_Clear(uint32_t Color)
 {
 	user_lcd_status_t ret = user_lcd_status_ERROR_NONE;
 
-	if (LcdDrv->FillRect(&m_ssd1315_instance, 1, 0, width, height, Color) < 0)
+	if (LcdDrv->FillRect(&m_ssd1315_instance, 0, 0, width, height, Color) < 0)
 	{
 		ret = user_lcd_status_ERROR_COMPONENT_FAILURE;
 	}
